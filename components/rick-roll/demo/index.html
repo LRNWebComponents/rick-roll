@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>rick-roll demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../rick-roll.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic rick-roll demo</h3>
+      <demo-snippet>
+        <template>
+          <rick-roll></rick-roll>
+        </template>
+      </demo-snippet>
+    </div>
+     <div class="vertical-section-container centered">
+      <h3>rick-roll from a different source</h3>
+      <demo-snippet>
+        <template>
+          <rick-roll roll-source="https://www.youtube.com/watch?v=zq8pt4dyDiw"></rick-roll>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

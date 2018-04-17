@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../materializecss-styles/materializecss-styles.html">
+<link rel="import" href="../hax-body-behaviors/hax-body-behaviors.html">
+<link rel="import" href="../schema-behaviors/schema-behaviors.html">
+<link rel="import" href="../video-player/video-player.html">
+
+<!--
+`rick-roll`
+A LRN element
+
+@demo demo/index.html
+
+@microcopy - the mental model for this element
+ -
+ -
+
+-->
+
+<dom-module id="rick-roll">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <video-player id="video" source="[[rollSource]]"></video-player>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'rick-roll',
+      behaviors: [HAXBehaviors.PropertiesBehaviors, MaterializeCSSBehaviors.ColorBehaviors, SchemaBehaviors.Schema],
+      properties: {
+        /**
+         * The source of your rick to be roll'in
+         */
+        rollSource: {
+          type: String,
+          value: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
+        },
+        /**
+         * automatically play the rick roll.
+         */
+        auto: {
+          type: Boolean,
+          value: false,
+          observer: '_autoChanged',
+        },
+      },
+      /**
+       * callback to notice that auto's state has changed.
+       */
+      _autoChanged: function(newValue, oldValue) {
+        if (typeof newValue !== typeof undefined && !oldValue && newValue) {
+          this.$.video.$$('iframe').setAttribute('src', this.$.video.$$('iframe').getAttribute('src') + '&autoplay=1');
+        }
+        else if (typeof newValue !== typeof undefined && oldValue && !newValue) {
+          this.$.video.$$('iframe').setAttribute('src', this.$.video.$$('iframe').getAttribute('src').replace('&autoplay=1', ''));
+        }
+      },
+      /**
+       * Attached to the DOM, now fire.
+       */
+      attached: function() {
+        // Establish hax property binding
+        let props = {
+          'canScale': true,
+          'canPosition': true,
+          'canEditSource': false,
+          'gizmo': {
+            'title': 'Rick roll',
+            'description': 'Prety obviously the best way to troll anyone ever.',
+            'icon': 'av:play-circle-filled',
+            'color': 'purple',
+            'groups': ['Media', 'Funny'],
+            'handles': [
+              {
+                'type': 'video',
+                'url': 'rollSource'
+              }
+            ],
+            'meta': {
+              'author': 'LRNWebComponents'
+            }
+          },
+          'settings': {
+            'quick': [
+              {
+                'property': 'rollSource',
+                'title': 'Source',
+                'description': 'The source of the rolling from a rick.',
+                'inputMethod': 'textfield',
+                'icon': 'icons:link',
+              },
+            ],
+            'configure': [
+              {
+                'property': 'rollSource',
+                'title': 'Source',
+                'description': 'The source of the rolling from a rick.',
+                'inputMethod': 'textfield',
+                'icon': 'icons:link',
+              },
+            ],
+            'advanced': [
+            ]
+          }
+        };
+        this.setHaxProperties(props);
+      },
+    });
+  </script>
+</dom-module>
